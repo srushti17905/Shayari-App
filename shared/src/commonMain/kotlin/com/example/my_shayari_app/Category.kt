@@ -33,7 +33,7 @@ var list = arrayOf(
     "Festival Shayari",
     "Success Shayari",
     "Promise Shayari",
-    "FriendShip Shayari",
+    "Proposeday Shayari",
     "Broken Heart Shayari",
     "Roseday Shayari",
     "Sorry Shayari",
@@ -46,6 +46,7 @@ class Category : Screen {
     @Composable
     override fun Content() {
         var navigator = LocalNavigator.current
+
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
                 contentAlignment = Alignment.Center,
