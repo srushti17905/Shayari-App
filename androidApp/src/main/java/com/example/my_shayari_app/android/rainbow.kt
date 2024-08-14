@@ -6,4 +6,5 @@ object rang
 {
     var purple = Color(0xE8501768)
     var lightpuple = Color(0xEB8A3F8D)
+    var lightpurple = Color(0xEBD99CDB)
 }

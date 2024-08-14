@@ -5,11 +5,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
@@ -18,22 +21,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 
 
 val aankheinShayari = arrayOf(
-    "तेरी आँखों की ये मस्तियाँ, दिल को छू लेने वाली हैं 💖\nइनकी झलक में बसी है, वो बात जो कह नहीं सकते।",
-    "आँखों की चमक बता देती है, दिल की बात को ✨\nहर एक नजर में छुपा होता है, इश्क का राज़।",
-    "तेरी आँखों की गहराई में, खो जाना चाहता हूँ 🌌\nतेरी नज़रों की जादूगरी, बस मैं खुद को तुझसे जोड़ना चाहता हूँ।",
-    "आँखों के बिना ये दिल कुछ नहीं 😔\nतेरी आँखों में सुकून मिलता है, जैसे शाम की चाँदनी में चाँद।",
-    "तेरे बिना ये पल जैसे अधूरे हैं, आँखों से जब तू दूर होती है 🕒\nतेरी यादें ही आँखों में बसे हैं, जो दिल को हर बार बहलाती हैं।",
-    "तेरी आँखों की मस्ती ने, कर दिया है दिल को बेताब 🥰\nइनकी झलक में मिलती है, मुझे खुद से खास।",
-    "आँखों के बिना ये दिल नहीं मानता 💔\nतेरे नयनों की बातों को, मेरे दिल ने सच्चा माना है।",
-    "तेरे नयनों की यह दीवानगी, दिल को छू जाती है 🌟\nतू सामने हो, तो फिर आँखें खुद को भी नजर-अंदाज कर जाती हैं।",
-    "तेरे आँखों के ख्वाबों में खो जाता हूँ 💭\nइनकी रौशनी में दिल को सुकून पा जाता हूँ।",
-    "तेरी आँखें जब मुस्कुराती हैं 😍\nलगता है जैसे सारा जहाँ हंस रहा है, इनकी हँसी में खो जाने की, मेरे दिल की बस यही आस है।"
+    "\nतेरी आँखों की ये मस्तियाँ,\nिल को छू लेने वाली हैं ,💖\n इनकी झलक में बसी है\n,वो बात जो कह नहीं सकते।\n",
+    "\nआँखों की चमक बता देती है\n, दिल की बात को ✨\nहर एक नजर में छुपा होता है,\n इश्क का राज़।\n",
+    "\nतेरी आँखों की गहराई में,\n खो जाना चाहता हूँ 🌌\nतेरी नज़रों की जादूगरी,\n बस मैं खुद को तुझसे जोड़ना चाहता हूँ।\n",
+    "\nआँखों के बिना ये दिल कुछ नहीं 😔\nतेरी आँखों में सुकून मिलता है,\n जैसे शाम की चाँदनी में चाँद।\n",
+    "\nतेरे बिना ये पल जैसे अधूरे हैं,\n आँखों से जब तू दूर होती है 🕒\nतेरी यादें ही आँखों में बसे हैं,\n जो दिल को हर बार बहलाती हैं।\n",
+    "\nतेरी आँखों की मस्ती ने,\n कर दिया है दिल को बेताब 🥰\nइनकी झलक में मिलती है,\n मुझे खुद से खास।\n",
+    "\nआँखों के बिना ये दिल नहीं मानता 💔\nतेरे नयनों की बातों को, \nमेरे दिल ने सच्चा माना है।\n",
+    "\nतेरे नयनों की यह दीवानगी,\n दिल को छू जाती है 🌟\nतू सामने हो,\n तो फिर आँखें खुद को भी नजर-अंदाज कर जाती हैं।\n",
+    "\nतेरे आँखों के ख्वाबों में खो जाता हूँ 💭\nइनकी रौशनी में दिल को सुकून पा जाता हूँ।\n",
+    "\nतेरी आँखें जब मुस्कुराती हैं 😍\nलगता है जैसे सारा जहाँ हंस रहा है,\n इनकी हँसी में खो जाने की,\n मेरे दिल की बस यही आस है।\n"
 )
 
 val loveshayari = arrayOf(
@@ -257,15 +261,56 @@ val funnyshayari = arrayOf(
     "हंसी का तो ऐसा मामला है,\n 😂 कभी आता है, कभी जाता है, लेकिन हर बार दिल को छू जाता है।🤣❤️"
 )
 
-class ShayriPage(var shayri: String ) : Screen {
+class ShayriPage(var shayri: String) : Screen {
     @Composable
     override fun Content() {
+        var finalshayri =
+            if (shayri == "Aankhein Shayari") {
+                aankheinShayari
+            } else if (shayri == "Love Shayari") {
+                loveshayari
+            } else if (shayri == "Birthday Shayari") {
+                birthdayshayari
+            } else if (shayri == "FriendShip Shayari") {
+                friendshipshayari
+            } else if (shayri == "Krishna Shayari") {
+                krishnashyari
+            } else if (shayri == "Motivational Shayari") {
+                motivationalshayari
+            } else if (shayri == "Alone Shayari") {
+                aloneshayari
+            } else if (shayri == "Barish Shayari") {
+                barishshayari
+            } else if (shayri == "Attitude Shayari") {
+                attitudeshayari
+            } else if (shayri == "Festival Shayari") {
+                festivalshayari
+            } else if (shayri == "Success Shayari") {
+                successshayari
+            } else if (shayri == "Promise Shayari") {
+                promiseshayari
+            } else if (shayri == "Proposeday Shayari") {
+                proposeshayari
+            } else if (shayri == "Broken Heart Shayari") {
+                brokenheartshayari
+            } else if (shayri == "Roseday Shayari") {
+                rosedayshayari
+            } else if (shayri == "Sorry Shayari") {
+                sorryshayari
+            } else if (shayri == "Best Wishes Shayari") {
+                bestwishesshayari
+            } else {
+                funnyshayari
+            }
+
         Column(
             modifier = Modifier.fillMaxSize().background(color = star.purple)
         ) {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize().background(color = star.purple).weight(1f)
+                modifier = Modifier.fillMaxSize()
+                    .background(color = star.purple)
+                    .weight(1f)
             ) {
                 Text(
                     text = shayri, fontSize = 30.sp, color = Color.White
@@ -273,106 +318,37 @@ class ShayriPage(var shayri: String ) : Screen {
             }
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize().weight(12f)
-                    .background(color = star.purple)
+                modifier = Modifier.fillMaxSize().weight(12f).background(color = star.purple)
                     .padding(top = 10.dp)
             ) {
 
-
-                    items(aankheinShayari.size) { i ->
-                        Surface(
-                            modifier = Modifier.fillMaxSize()
-                                .weight(1f)
-                                .background(color = star.purple)
-                                .padding(5.dp), shape = RoundedCornerShape(10.dp)
-                        )
-                        {
-                            Box(
-                                modifier = Modifier.fillMaxSize()
-                                    .background(color = Color.White),
-                                contentAlignment = Alignment.Center
-                            )
-                            {
-                                Text(
-                                    text = aankheinShayari[i],
-                                    fontSize = 20.sp,
-                                    color = Color.Black,
-                                    modifier = Modifier.padding(5.dp)
-                                )
-                            }
-                        }
-                    }
-
-
-                    items(loveshayari.size) { i ->
-                        Surface(
-                            modifier = Modifier.fillMaxSize()
-                                .weight(1f)
-                                .background(color = star.purple)
-                                .padding(5.dp), shape = RoundedCornerShape(10.dp)
-                        )
-                        {
-                            Box(
-                                modifier = Modifier.fillMaxSize()
-                                    .background(color = Color.White),
-                                contentAlignment = Alignment.Center
-                            )
-                            {
-                                Text(
-                                    text = loveshayari[i],
-                                    fontSize = 20.sp,
-                                    color = Color.Black,
-                                    modifier = Modifier.padding(5.dp)
-                                )
-                            }
-                        }
-                    }
-
-                items(birthdayshayari.size) { i ->
+                items(finalshayri.size) { i ->
                     Surface(
                         modifier = Modifier.fillMaxSize()
                             .weight(1f)
-                            .background(color = star.purple)
-                            .padding(5.dp), shape = RoundedCornerShape(10.dp)
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.fillMaxSize()
-                                .background(color = Color.White),
-                            contentAlignment = Alignment.Center
-                        )
-                        {
-                            Text(
-                                text = birthdayshayari[i],
-                                fontSize = 20.sp,
-                                color = Color.Black,
-                                modifier = Modifier.padding(5.dp)
-                            )
-                        }
+                            .padding(5.dp), shape = RoundedCornerShape(10.dp), color = Color.White
+                    ) {
+                            Box(
+                                modifier = Modifier.fillMaxSize().weight(1f)
+                                    .background(color = Color.White),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = finalshayri[i],
+                                    fontSize = 20.sp,
+                                    color = Color.Black,
+                                    modifier = Modifier.padding(5.dp)
+                                )
+
+                            }
+
                     }
                 }
-
-
             }
+
         }
     }
 }
 
 
 
-
-
-
-
-
-
-
-/* Surface(modifier = Modifier.fillMaxSize(), color = star.purple)
- {
-     Text(text = shayri, fontSize = 40.sp)
-
-     Surface (modifier = Modifier.fillMaxSize())
-     {
-         Text(text = aankheinShayari[2] , fontSize = 30.sp )
-     }
- }*/
