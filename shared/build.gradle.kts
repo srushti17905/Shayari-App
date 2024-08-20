@@ -37,6 +37,9 @@ kotlin {
             implementation(libs.navigator.tabs)
             implementation(libs.navigator.transitions)
 
+            //for resource
+            implementation(compose.components.resources)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -55,4 +58,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+
+// for resource
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.example.my_shayari_app"
+    generateResClass = always
 }

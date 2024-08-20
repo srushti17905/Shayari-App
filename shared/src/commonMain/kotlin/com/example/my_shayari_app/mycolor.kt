@@ -6,4 +6,5 @@ object star
 {
     var purple = Color(0xE8501768)
     var lightpurple = Color(0xEB8A3F8D)
+    var lpurple = Color(0xFFC7AECE)
 }
