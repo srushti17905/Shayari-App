@@ -355,7 +355,9 @@ class ShayriPage(var shayri: String) : Screen {
                                     }
                                     Box(modifier = Modifier.fillMaxHeight().width(20.dp))
                                     {
-//                                        Image(painter = painterResource(Res.drawable.))
+                                        Image(painter = painterResource(Res.drawable.image), contentDescription = null
+
+                                        )
                                     }
                                     Box(modifier = Modifier.fillMaxHeight().width(20.dp))
                                     {
