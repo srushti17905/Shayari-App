@@ -2,6 +2,7 @@ package com.example.my_shayari_app
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -278,6 +279,9 @@ val funnyshayari = arrayOf(
 class ShayriPage(var shayri: String) : Screen {
     @Composable
     override fun Content() {
+        var shareshayri = ""
+        var sharesevice = ShareService(context)
+
         var finalshayri = if (shayri == "Aankhein Shayari") {
             aankheinShayari
         } else if (shayri == "Love Shayari") {
@@ -336,13 +340,13 @@ class ShayriPage(var shayri: String) : Screen {
             ) {
                 items(finalshayri.size) { i ->
 
+                    shareshayri = finalshayri[i]
                     Surface(
                         modifier = Modifier.fillMaxSize().padding(10.dp),
                         shape = RoundedCornerShape(10.dp),
                         color = Color.White
                     ) {
-                        Column(modifier = Modifier.fillMaxSize())
-                        {
+                        Column(modifier = Modifier.fillMaxSize()) {
                             Text(
                                 text = finalshayri[i],
                                 fontSize = 20.sp,
@@ -362,6 +366,9 @@ class ShayriPage(var shayri: String) : Screen {
                                             painter = painterResource(Res.drawable.share),
                                             contentDescription = null,
                                             modifier = Modifier.height(20.dp).width(20.dp)
+                                                .clickable {
+                                                    sharesevice.shareText(shareshayri)
+                                                }
                                         )
                                     }
                                     Box(
@@ -372,27 +379,23 @@ class ShayriPage(var shayri: String) : Screen {
                                             painter = painterResource(Res.drawable.copyfile),
                                             contentDescription = null,
                                             modifier = Modifier.height(20.dp).width(20.dp)
+                                                .clickable{
+                                                    sharesevice.copyText(shareshayri)
+                                                }
                                         )
                                     }
                                     Box(
                                         contentAlignment = Alignment.Center,
                                         modifier = Modifier.fillMaxHeight().width(120.dp)
                                     ) {
-                                        Image(
-                                            painter = painterResource(Res.drawable.whatsapp),
+                                        Image(painter = painterResource(Res.drawable.whatsapp),
                                             contentDescription = null,
                                             modifier = Modifier.height(22.dp).width(22.dp)
-                                        )
-                                    }
+                                                .clickable {
+                                                    sharesevice.shareTextToWhatsApp(shareshayri)
 
-                                    Box(
-                                        contentAlignment = Alignment.Center,
-                                        modifier = Modifier.fillMaxHeight().width(120.dp)
-                                    ) {
-                                        Image(
-                                            painter = painterResource(Res.drawable.like),
-                                            contentDescription = null,
-                                            modifier = Modifier.height(22.dp).width(22.dp))
+                                                }
+                                        )
                                     }
                                 }
                             }
@@ -403,7 +406,3 @@ class ShayriPage(var shayri: String) : Screen {
         }
     }
 }
-
-
-
-

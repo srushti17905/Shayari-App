@@ -7,9 +7,13 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.FadeTransition
 import cafe.adriel.voyager.transitions.SlideTransition
 
+var context: Any? = null
+
 @Composable
-fun myapp() {
-    Navigator(Category()){navigator ->
+fun myapp(getcontext: Any? = null) {
+
+    context = getcontext
+    Navigator(Category()) { navigator ->
 
         SlideTransition(navigator = navigator, animationSpec = tween(1000))
 
