@@ -340,7 +340,7 @@ class ShayriPage(var shayri: String) : Screen {
             ) {
                 items(finalshayri.size) { i ->
 
-                    shareshayri = finalshayri[i]
+
                     Surface(
                         modifier = Modifier.fillMaxSize().padding(10.dp),
                         shape = RoundedCornerShape(10.dp),
@@ -367,7 +367,7 @@ class ShayriPage(var shayri: String) : Screen {
                                             contentDescription = null,
                                             modifier = Modifier.height(20.dp).width(20.dp)
                                                 .clickable {
-                                                    sharesevice.shareText(shareshayri)
+                                                    sharesevice.shareText(finalshayri[i])
                                                 }
                                         )
                                     }
@@ -380,7 +380,7 @@ class ShayriPage(var shayri: String) : Screen {
                                             contentDescription = null,
                                             modifier = Modifier.height(20.dp).width(20.dp)
                                                 .clickable{
-                                                    sharesevice.copyText(shareshayri)
+                                                    sharesevice.copyText(finalshayri[i])
                                                 }
                                         )
                                     }
@@ -392,7 +392,7 @@ class ShayriPage(var shayri: String) : Screen {
                                             contentDescription = null,
                                             modifier = Modifier.height(22.dp).width(22.dp)
                                                 .clickable {
-                                                    sharesevice.shareTextToWhatsApp(shareshayri)
+                                                    sharesevice.shareTextToWhatsApp(finalshayri[i])
 
                                                 }
                                         )

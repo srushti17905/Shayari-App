@@ -77,14 +77,10 @@ class Category : Screen {
                             ) {
                                 Text(text = list[i], fontSize = 25.sp, color = Color.White)
                             }
-
-
                     }
                 }
             }
         }
-
-
     }
 }
 
